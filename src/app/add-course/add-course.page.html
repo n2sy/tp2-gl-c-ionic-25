@@ -1,0 +1,51 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>addCourse</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <div class="ion-margin">
+        <form [formGroup]="addForm" (ngSubmit)="submitHandler()">
+            <ion-card>
+                <ion-card-header>
+                    <ion-card-title>Information du cours</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                    <ion-label>Titre du cours *</ion-label>
+                    <ion-input type="text" formControlName="title"></ion-input>
+                    <ion-label>Auteur du cours *</ion-label>
+                    <ion-input type="text" formControlName="author"></ion-input>
+                    <ion-label>URL du logo du cours *</ion-label>
+                    <ion-input type="url" formControlName="logo"></ion-input>
+                    
+                    @if (addForm.get('logo').value) {
+                        <ion-img [src]="addForm.get('logo').value">
+                        </ion-img>
+                        
+                    }
+                    @else {
+                        <ion-label>Pas d'aperçu disponible</ion-label>
+                    }
+                    
+                    <p> {{ addForm.get('logo').value }} </p>
+                </ion-card-content>
+            </ion-card>
+            <ion-card>
+                <ion-card-header>
+                    <ion-card-title>Mots-clés</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                    <ion-label>Ajouter un mot-clè</ion-label>
+                    <ion-input [ngModelOptions]="{standalone : true}" [(ngModel)]=s"
+                    (keyup.space) = 
+                    type="text" ></ion-input>
+                 
+                </ion-card-content>
+            </ion-card>
+         
+          <button type="submit">Submit</button>
+        </form>
+        
+    </div>
+</ion-content>
