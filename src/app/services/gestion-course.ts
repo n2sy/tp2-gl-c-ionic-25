@@ -29,6 +29,15 @@ export class GestionCourse {
     },
   ];
 
+  getCourseById(courseId) {
+    return this.allCourses.find((element) => element.id == courseId);
+  }
+
+  deleteCourse(courseId) {
+    let i = this.allCourses.findIndex((element) => element.id == courseId);
+    this.allCourses.splice(i, 1);
+  }
+
   getAllCourses() {
     return this.allCourses;
   }

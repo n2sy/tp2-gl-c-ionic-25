@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Course } from '../models/course.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GestionCourse } from '../services/gestion-course';
+import type { Course } from '../models/course.model';
 import { AlertController, ToastController } from '@ionic/angular';
 
 @Component({
@@ -12,21 +12,19 @@ import { AlertController, ToastController } from '@ionic/angular';
 })
 export class DetailsCoursePage {
   selectedCourse: Course;
-  activatedRoute = inject(ActivatedRoute);
-  courseSer = inject(GestionCourse);
-  alertCtrl = inject(AlertController);
-  toastCtrl = inject(ToastController);
-  router = inject(Router);
+  private activatedRoute = inject(ActivatedRoute);
+  private courseSer = inject(GestionCourse);
+  private alertCtrl = inject(AlertController);
+  private toastController = inject(ToastController);
+  private router = inject(Router);
 
   ngOnInit() {
     this.selectedCourse = this.courseSer.getCourseById(
       this.activatedRoute.snapshot.paramMap.get('id')
     );
-
-    console.log(this.selectedCourse);
   }
 
-  async afficherAlerte() {
+  async presentAlert() {
     const alert = await this.alertCtrl.create({
       header: 'Confirmation',
       message: 'Etes-vous sûr de vouloir supprimer ce cours ?',
@@ -37,7 +35,7 @@ export class DetailsCoursePage {
           handler: () => {
             this.courseSer.deleteCourse(this.selectedCourse.id);
             this.presentToast();
-            this.router.navigateByUrl("/")
+            this.router.navigateByUrl('/home');
           },
         },
       ],
@@ -45,14 +43,13 @@ export class DetailsCoursePage {
 
     await alert.present();
   }
-  
-    async presentToast() {
-    const toast = await this.toastCtrl.create({
-      message: 'Course supprimé avec succès',
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Cours supprimé avec succès',
       duration: 1500,
       position: 'bottom',
-      color : "danger",
-      
+      color: 'danger',
     });
 
     await toast.present();
