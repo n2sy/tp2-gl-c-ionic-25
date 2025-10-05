@@ -33,8 +33,11 @@ export class GestionCourse {
     return this.allCourses.find((element) => element.id == courseId);
   }
 
-  deleteCourse(courseId) {
-    let i = this.allCourses.findIndex((element) => element.id == courseId);
+  deleteCourse(selectedCourse) {
+    // let i = this.allCourses.findIndex((element) => element.id == courseId);
+    let i = this.allCourses.indexOf(selectedCourse);
+    console.log(i);
+
     this.allCourses.splice(i, 1);
   }
 

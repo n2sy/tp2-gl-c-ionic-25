@@ -1,7 +1,65 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>addCourse</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>Ajouter Cours</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true"> </ion-content>
+<ion-content [fullscreen]="true">
+  <form [formGroup]="addForm" (ngSubmit)="submitHandler()">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Informations du cours</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-label>Titre du cours*</ion-label>
+        <ion-input formControlName="title" type="text"></ion-input>
+        <ion-label>Author du cours*</ion-label>
+        <ion-input formControlName="author" type="text"></ion-input>
+        <ion-label>Logo du cours*</ion-label>
+        <ion-input formControlName="logo" type="url"></ion-input>
+
+        @if (Logo.length) {
+        <ion-img [src]="Logo"></ion-img>
+
+        } @else {
+        <ion-label>Pas d'aperçu disponible</ion-label>
+        }
+
+        <ion-button type="submit">Submit</ion-button>
+      </ion-card-content>
+    </ion-card>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Mots-clès</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-label>Ajouter un mot-clè</ion-label>
+        <ion-input
+          [ngModelOptions]="{standalone : true}"
+          [(ngModel)]="inputKeyword"
+          type="text"
+          (keyup.space)="addKeyword()"
+        ></ion-input>
+
+        @for (keyword of Keywords; track $index) {
+        <ion-chip (click)="deleteKeyword(keyword)" color="primary"
+          >{{ keyword }}
+        </ion-chip>
+        }
+      </ion-card-content>
+    </ion-card>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Photos Additionnelles</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        @if (!addForm.get("images").value.length) {
+        <ion-label>Aucune photo ajoutée</ion-label>
+        <ion-button (click)="presentActionSheet()" color="primary" expand="block" fill="outline"
+          >Ajouter une photo</ion-button
+        >
+        }
+      </ion-card-content>
+    </ion-card>
+  </form>
+</ion-content>

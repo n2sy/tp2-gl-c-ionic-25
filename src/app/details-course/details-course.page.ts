@@ -33,7 +33,7 @@ export class DetailsCoursePage {
         {
           text: 'Oui',
           handler: () => {
-            this.courseSer.deleteCourse(this.selectedCourse.id);
+            this.courseSer.deleteCourse(this.selectedCourse);
             this.presentToast();
             this.router.navigateByUrl('/home');
           },

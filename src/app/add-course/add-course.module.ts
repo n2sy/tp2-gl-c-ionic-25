@@ -9,7 +9,7 @@ import { AddCoursePageRoutingModule } from './add-course-routing.module';
 import { AddCoursePage } from './add-course.page';
 
 @NgModule({
-  imports: [CommonModule, IonicModule, AddCoursePageRoutingModule],
+  imports: [CommonModule, IonicModule, AddCoursePageRoutingModule, ReactiveFormsModule, FormsModule],
   declarations: [AddCoursePage],
 })
 export class AddCoursePageModule {}
